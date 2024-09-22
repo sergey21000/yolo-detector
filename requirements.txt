@@ -1,0 +1,3 @@
+ultralytics>=8,<9
+gradio>4
+yt_dlp

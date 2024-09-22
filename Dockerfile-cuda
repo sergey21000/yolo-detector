@@ -1,0 +1,10 @@
+FROM ultralytics/ultralytics:latest
+WORKDIR /app
+RUN apt-get update && apt-get install --no-install-recommends -y ffmpeg
+ENV PATH="/usr/bin:${PATH}"
+RUN pip install --no-cache-dir gradio yt_dlp
+COPY app.py .
+COPY utils.py .
+COPY yolo_classes.json .
+EXPOSE 7860
+CMD ["python3", "app.py"]
