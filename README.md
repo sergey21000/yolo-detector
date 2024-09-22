@@ -29,8 +29,9 @@
 - [ultralytics](https://github.com/ultralytics/ultralytics) для детекции объектов с помощью моделей YOLOv8
 - [gradio](https://github.com/gradio-app/gradio) для написания веб-интерфейса
 - [pandas](https://github.com/pandas-dev/pandas) для формирования датафрейма и его сохранения в формат `csv`
- 
- 
+
+
+---
 ## **Установка и запуск через Python**
 
 **1) Клонирование репозитория**  
@@ -61,6 +62,7 @@ python3 app.py
 Приложение доступно через несколько секунд после запуска
 
 
+---
 ## **Установка и запуск через Docker**
 
 Для запуска приложения с поддержкой GPU CUDA необходима установка [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#installation).
