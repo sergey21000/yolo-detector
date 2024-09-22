@@ -30,37 +30,35 @@
 - [gradio](https://github.com/gradio-app/gradio) для написания веб-интерфейса
 - [pandas](https://github.com/pandas-dev/pandas) для формирования датафрейма и его сохранения в формат `csv`
 
-
 ---
 ## **Установка и запуск через Python**
 
 **1) Клонирование репозитория**  
 
-```bash
-git clone https://github.com/username21000/info-bot.git
-cd info-bot
+```
+git clone https://github.com/sergey21000/yolo-detector.git
+cd yolo-detector
 ```
 
 **2) Установка зависимостей**  
 
 С поддержкой CPU
-```bash
+```
 pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
 ```
 
 С поддержкой CUDA 12.4
-```bash
+```
 pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu124
 ```
 [Страница](https://pytorch.org/get-started/locally/#start-locally) устанвки Pytorch где можно выбрать `--extra-index-url` для других версий CUDA
 
 **3) Запуск сервера Gradio**  
-```bash
+```
 python3 app.py
 ```
 После запуска сервера перейти в браузере по адресу http://localhost:7860/  
 Приложение доступно через несколько секунд после запуска
-
 
 ---
 ## **Установка и запуск через Docker**
@@ -85,8 +83,8 @@ docker run -d --gpus all -p 7860:7860 -v ./models:/app/models sergey21000/yolo-d
 
 **1) Клонирование репозитория**  
 ```bash
-git clone https://github.com/username21000/info-bot.git
-cd info-bot
+git clone https://github.com/sergey21000/yolo-detector.git
+cd yolo-detector
 ```
 
 **2) Сборка образа и запуск контейнера**
