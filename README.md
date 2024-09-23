@@ -25,7 +25,7 @@
 - Сохранение результатов детекций к видео в `csv` файл для дальнейшего анализа
 
 
-### Стек:
+### Стек
 - [python](https://www.python.org/) >=3.8
 - [ultralytics](https://github.com/ultralytics/ultralytics) для детекции объектов с помощью моделей YOLOv8
 - [gradio](https://github.com/gradio-app/gradio) для написания веб-интерфейса
