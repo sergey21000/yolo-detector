@@ -11,6 +11,7 @@
 Детектор объектов на фото и видео на основе модели YOLOv8
 
 
+---
 ### Ссылки
 - [![Open in Colab](https://img.shields.io/static/v1?message=Open%20in%20Colab&logo=googlecolab&labelColor=5c5c5c&color=0f80c1&label=%20)](https://colab.research.google.com/github/sergey21000/yolo-detector/blob/main/YOLO_Gradio_App_Docker.ipynb) Google Colab ноутбук с комментариями, демонстрацией распознавания фото и видео и анализом результатов детекции видео 
 - [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow)](https://huggingface.co/spaces/sergey21000/yolo-detector) Gradio Web Demo
@@ -20,7 +21,7 @@
 ### Возможности
 - Детекция объектов на изображениях (файл или URL ссылка)
 - Детекция видео (файл или ссылка на YouTube)
-- Возможность выбора моделей (загружаются в директорию `/models`)  
+- Возможность выбора моделей
 - Сохранение результатов детекций к видео в `csv` файл для дальнейшего анализа
 
 
@@ -70,7 +71,7 @@ python3 app.py
 
 *С поддержкой CPU*
 ```
-docker run -d -p 7860:7860 -v ./models:/app/models --name yolo-detector sergey21000/yolo-detector:cpu
+docker run -d -p 7860:7860 -v ./models:/app/models sergey21000/yolo-detector:cpu
 ```
 
 *С поддержкой CUDA*
