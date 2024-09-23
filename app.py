@@ -177,7 +177,7 @@ with gr.Blocks(css=css) as demo:
         )
 
     gr.HTML("""<h3 style='text-align: center'>
-    <a href="https://github.com/sergey21000/yolo_gradio_detector" target='_blank'>GitHub Page</a></h3>
+    <a href="https://github.com/sergey21000/yolo-detector" target='_blank'>GitHub Page</a></h3>
     """)
     
 demo.launch(server_name='0.0.0.0')  # debug=True
