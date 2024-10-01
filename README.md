@@ -27,7 +27,7 @@
 
 ### Стек
 - [python](https://www.python.org/) >=3.8
-- [ultralytics](https://github.com/ultralytics/ultralytics) для детекции объектов с помощью моделей YOLOv8
+- [ultralytics](https://github.com/ultralytics/ultralytics) для детекции объектов с помощью моделей YOLOv11
 - [gradio](https://github.com/gradio-app/gradio) для написания веб-интерфейса
 - [pandas](https://github.com/pandas-dev/pandas) для формирования датафрейма и его сохранения в формат `csv`
 
