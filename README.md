@@ -4,7 +4,7 @@
 
 <div align="center">
 
-![App interface](./screenshots/yolo_detector_main_screen.png)
+![App interface](./screenshots/main_page.png)
 
 </div>
 
