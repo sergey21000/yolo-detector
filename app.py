@@ -101,7 +101,7 @@ css = '''
 .gradio-container { width: 70% !important }
 '''
 with gr.Blocks(css=css) as demo:
-    gr.HTML("""<h3 style='text-align: center'>YOLOv8 Detector</h3>""")
+    gr.HTML("""<h3 style='text-align: center'>YOLOv11 Detector</h3>""")
     
     model_state = gr.State({'model': default_model})
     detect_result = gr.State(None)
