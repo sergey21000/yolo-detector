@@ -36,7 +36,7 @@ VIDEO_EXTENSIONS = ['.mp4', '.avi']
 def change_model(model_state: Dict[str, YOLO], model_name: str):
     progress = gr.Progress()
     progress(0.3, desc='Downloading the model')
-    model_path = download_model(model_name)
+    model_path = download_model(model_name, MODELS_DIR, MODELS)
     progress(0.7, desc='Model initialization')
     model_state['model'] = YOLO(model_path)
     return f'Model {model_name} initialized'
