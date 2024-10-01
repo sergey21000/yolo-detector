@@ -18,7 +18,7 @@
 - [![Docker Hub](https://img.shields.io/badge/Docker-Hub-blue?logo=docker)](https://hub.docker.com/r/sergey21000/yolo-detector) Docker Hub 
 
 
-### Возможности
+### Функционал
 - Детекция объектов на изображениях (файл или URL ссылка)
 - Детекция видео (файл или ссылка на YouTube)
 - Возможность выбора моделей
