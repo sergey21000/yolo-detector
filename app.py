@@ -16,11 +16,11 @@ MODELS_DIR = Path('models')
 MODELS_DIR.mkdir(exist_ok=True)
 
 MODELS = {
-    'yolov8n.pt': 'https://github.com/ultralytics/assets/releases/download/v8.1.0/yolov8n.pt',
-    'yolov8s.pt': 'https://github.com/ultralytics/assets/releases/download/v8.1.0/yolov8s.pt',
-    'yolov8m.pt': 'https://github.com/ultralytics/assets/releases/download/v8.1.0/yolov8m.pt',
-    'yolov8l.pt': 'https://github.com/ultralytics/assets/releases/download/v8.1.0/yolov8l.pt',
-    'yolov8x.pt': 'https://github.com/ultralytics/assets/releases/download/v8.1.0/yolov8x.pt',
+    'yolov11n.pt': 'https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n.pt',
+    'yolov11s.pt': 'https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11s.pt',
+    'yolov11m.pt': 'https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11m.pt',
+    'yolov11l.pt': 'https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11l.pt',
+    'yolov11x.pt': 'https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11x.pt',
 }
 MODEL_NAMES = list(MODELS.keys())
 
