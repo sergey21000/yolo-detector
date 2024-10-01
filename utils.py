@@ -25,7 +25,7 @@ def download_model(model_name: str, models_dir: Path, models: dict) -> str:
 
 
 def detect_image(image_path: str, model: YOLO, conf: float, iou: float) -> np.ndarray:
-    gr.Progress()(0.5, desc='Детекция изображения...')
+    gr.Progress()(0.5, desc='Image detection...')
     detections = model.predict(source=image_path, conf=conf, iou=iou)
     np_image = detections[0].plot()
     np_image = cv2.cvtColor(np_image, cv2.COLOR_BGR2RGB)
@@ -36,7 +36,7 @@ def detect_video(video_path_or_url: str, model: YOLO, conf: float, iou: float) -
     progress = gr.Progress()
     video_path = video_path_or_url
     if 'youtube.com' in video_path_or_url or 'youtu.be' in video_path_or_url:
-        progress(0.001, desc='Загрузка видео с YouTube...')
+        progress(0.001, desc='Downloading videos from YouTube...')
         ydl_opts = {'format': 'bestvideo[height<=720]'}
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             video_info_dict = ydl.extract_info(video_path_or_url, download=True)
@@ -60,7 +60,7 @@ def detect_video(video_path_or_url: str, model: YOLO, conf: float, iou: float) -
     frames_count = 0
     for result in generator:
         frames_count += 1
-        progress((frames_count, num_frames), desc=f'Детекция видео, шаг {frames_count}/{num_frames}')
+        progress((frames_count, num_frames), desc=f'Video detection, step {frames_count}/{num_frames}')
 
     file_name = Path(result.path).with_suffix('.avi').name
     result_video_path = Path(result.save_dir) / file_name

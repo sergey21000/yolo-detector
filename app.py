@@ -10,7 +10,7 @@ from ultralytics import YOLO
 from utils import download_model, detect_image, detect_video, get_csv_annotate
 
 
-# ======================= МОДЕЛЬ ===================================
+# ======================= MODEL ===================================
 
 MODELS_DIR = Path('models')
 MODELS_DIR.mkdir(exist_ok=True)
@@ -31,15 +31,15 @@ IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png']
 VIDEO_EXTENSIONS = ['.mp4', '.avi']
 
 
-# =================== ДОП ФУНКЦИИ ИНТРЕФЕЙСА ==============================
+# =================== ADDITIONAL INTERFACE FUNCTIONS ========================
 
 def change_model(model_state: Dict[str, YOLO], model_name: str):
     progress = gr.Progress()
-    progress(0.3, desc='Загрузка модели')
+    progress(0.3, desc='Downloading the model')
     model_path = download_model(model_name)
-    progress(0.7, desc='Инициализация модели')
+    progress(0.7, desc='Model initialization')
     model_state['model'] = YOLO(model_path)
-    return f"Модель {model_name} инициализирована"
+    return f'Model {model_name} initialized'
 
 
 def detect(file_path: str, file_link: str, model_state: Dict[str, YOLO], conf: float, iou: float):
@@ -50,15 +50,15 @@ def detect(file_path: str, file_link: str, model_state: Dict[str, YOLO], conf: f
     file_ext = f'.{file_path.rsplit(".")[-1]}'
     if file_ext in IMAGE_EXTENSIONS:
         np_image = detect_image(file_path, model, conf, iou)
-        return np_image, "Детекция завершена, открытие изображения..."
+        return np_image, "Detection complete, opening image..."
     elif file_ext in VIDEO_EXTENSIONS or 'youtube.com' in file_link:
         video_path = detect_video(file_path, model, conf, iou)
-        return video_path, "Детекция завершена, конвертация и открытие видео..."
+        return video_path, "Detection complete, converting and opening video..."
     else:
-        gr.Info('Неверный формат изображения или видео...')
+        gr.Info('Invalid image or video format...')
         return None, None
 
-# =================== КОМПОНЕНТЫ ИНТРЕФЕЙСА ==============================
+# =================== INTERFACE COMPONENTS ============================
 
 def get_output_media_components(detect_result: Optional[Union[np.ndarray, str, Path]] = None):
     visible = isinstance(detect_result, np.ndarray)
@@ -88,14 +88,14 @@ def get_output_media_components(detect_result: Optional[Union[np.ndarray, str, P
 
 def get_download_csv_btn(csv_annotations_path: Optional[Path] = None):
     download_csv_btn = gr.DownloadButton(
-        label='Скачать csv аннотации к видео',
+        label='Download csv annotations for video',
         value=csv_annotations_path,
         scale=0,
         visible=csv_annotations_path is not None,
         )
     return download_csv_btn
 
-# =================== ИНТЕРФЕЙС ПРИЛОЖЕНИЯ ==========================
+# =================== APPINTERFACE ==========================
 
 css = '''
 .gradio-container { width: 70% !important }
@@ -109,12 +109,12 @@ with gr.Blocks(css=css) as demo:
 
     with gr.Row():
         with gr.Column():
-            file_path = gr.File(file_types=['image', 'video'], file_count='single', label='Выберите изображение или видео')
-            file_link = gr.Textbox(label='Прямая ссылка на изображение или ссылка на YouTube')
-            model_name = gr.Radio(choices=MODEL_NAMES, value=MODEL_NAMES[0], label='Модель YOLO')
-            conf = gr.Slider(0, 1, value=0.5, step=0.05, label='Порог уверенности')
-            iou = gr.Slider(0, 1, value=0.7, step=0.1, label='Порог IOU')
-            status_message = gr.Textbox(value='Готово к работе', label='Статус')
+            file_path = gr.File(file_types=['image', 'video'], file_count='single', label='Select an image or video')
+            file_link = gr.Textbox(label='Direct link to image or YouTube link')
+            model_name = gr.Radio(choices=MODEL_NAMES, value=MODEL_NAMES[0], label='Select YOLO model')
+            conf = gr.Slider(0, 1, value=0.5, step=0.05, label='Confidence')
+            iou = gr.Slider(0, 1, value=0.7, step=0.1, label='IOU')
+            status_message = gr.Textbox(value='Ready to go', label='Status')
             detect_btn = gr.Button('Detect', interactive=True)
 
         with gr.Column():
@@ -144,7 +144,7 @@ with gr.Blocks(css=css) as demo:
         inputs=[detect_result],
         outputs=[image_output, video_output, clear_btn],
     ).then(
-        fn=lambda: 'Готово к работе',
+        fn=lambda: 'Ready to go',
         inputs=None,
         outputs=[status_message],
     ).then(
