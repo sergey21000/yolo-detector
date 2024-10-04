@@ -1,5 +1,5 @@
 
-## Детектор объектов на основе YOLOv11
+## Детектор объектов YOLOv11
 
 
 <div align="center">
@@ -8,24 +8,28 @@
 
 </div>
 
-Детектор объектов на фото и видео на основе модели YOLOv11
+Детектор объектов на фото и видео на основе модели YOLOv11 с можвоз
 
 
 ---
-### Ссылки
-- [![Open in Colab](https://img.shields.io/static/v1?message=Open%20in%20Colab&logo=googlecolab&labelColor=5c5c5c&color=0f80c1&label=%20)](https://colab.research.google.com/github/sergey21000/yolo-detector/blob/main/YOLO_Gradio_App_Docker.ipynb) Google Colab ноутбук с комментариями, демонстрацией распознавания фото и видео и анализом результатов детекции видео 
-- [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow)](https://huggingface.co/spaces/sergey21000/yolo-detector) Gradio Web Demo
-- [![Docker Hub](https://img.shields.io/badge/Docker-Hub-blue?logo=docker)](https://hub.docker.com/r/sergey21000/yolo-detector) Docker Hub 
 
+<div align="center">
+<a href="https://colab.research.google.com/github/sergey21000/yolo-detector/blob/main/YOLO_Gradio_App_Docker.ipynb"><img src="https://img.shields.io/static/v1?message=Open%20in%20Colab&logo=googlecolab&labelColor=5c5c5c&color=0f80c1&label=%20" alt="Open in Colab"></a>
+<a href="https://huggingface.co/spaces/sergey21000/yolo-detector"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow" alt="Hugging Face Spaces"></a>
+<a href="https://hub.docker.com/r/sergey21000/yolo-detector"><img src="https://img.shields.io/badge/Docker-Hub-blue?logo=docker" alt="Docker Hub "></a>
+</div>
+
+В Goole Colab ноутбуке находится код приложения с комментариями, демонстрацией распознавания фото и видео и анализом результатов детекции видео
 
 ### Функционал
 - Детекция объектов на изображениях (файл или URL ссылка)
-- Детекция видео (файл или ссылка на YouTube)
-- Возможность выбора моделей
+- Детекция видео (файл или ссылка на YouTube) с прогресс баром
+- Выбор моделей YOLOv11
+- Настройка параметров детекции - IOU и Confidence
 - Сохранение результатов детекций к видео в `csv` файл для дальнейшего анализа
 
 
-### Стек
+### Стек:
 - [python](https://www.python.org/) >=3.8
 - [ultralytics](https://github.com/ultralytics/ultralytics) для детекции объектов с помощью моделей YOLOv11
 - [gradio](https://github.com/gradio-app/gradio) для написания веб-интерфейса
