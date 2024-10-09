@@ -128,7 +128,7 @@ docker run -d --gpus all -p 7860:7860 -v ./models:/app/models yolo-detector:cuda
 Приложение тестировалось на python 3.8, 3.10 и следующих версиях бибилотек:  
 ```
 gradio==4.44.0
-ultralytics==8.2.98
+ultralytics==8.3.1
 yt-dlp==2024.8.6
 ```
 
