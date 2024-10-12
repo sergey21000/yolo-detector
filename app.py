@@ -97,9 +97,8 @@ def get_download_csv_btn(csv_annotations_path: Optional[Path] = None):
 
 # =================== APPINTERFACE ==========================
 
-css = '''
-.gradio-container { width: 70% !important }
-'''
+css = '''.gradio-container {width: 70% !important}'''
+
 with gr.Blocks(css=css) as demo:
     gr.HTML("""<h3 style='text-align: center'>YOLOv11 Detector</h3>""")
     
