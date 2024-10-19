@@ -1,17 +1,17 @@
 
 ## Детектор объектов YOLOv11
 
-
 <div align="center">
 
 ![App interface](./screenshots/main_page.png)
 
 </div>
 
-Детектор объектов на фото и видео на основе модели YOLOv11
-
-
 ---
+<div align="center">
+
+Детектор объектов на фото и видео на основе модели YOLOv11
+</div>
 
 <div align="center">
 <a href="https://colab.research.google.com/github/sergey21000/yolo-detector/blob/main/YOLO_Gradio_App_Docker.ipynb"><img src="https://img.shields.io/static/v1?message=Open%20in%20Colab&logo=googlecolab&labelColor=5c5c5c&color=0f80c1&label=%20" alt="Open in Colab"></a>
@@ -21,7 +21,9 @@
 
 В Goole Colab ноутбуке находится код приложения с комментариями, демонстрацией распознавания фото и видео через модели YOLOv11 из библиотеки Ultralytics и анализом результатов детекции видео с помощью графиков
 
-### Функционал
+
+---
+## Функционал
 
 - Детекция объектов на изображениях (файл или URL ссылка)
 - Детекция видео (файл или ссылка на YouTube) с прогресс баром
@@ -30,7 +32,8 @@
 - Сохранение результатов детекций к видео в `csv` файл для дальнейшего анализа
 
 
-### Стек
+---
+## Стек
 
 - [python](https://www.python.org/) >=3.8
 - [ultralytics](https://github.com/ultralytics/ultralytics) для детекции объектов с помощью моделей YOLOv11
@@ -38,7 +41,7 @@
 - [pandas](https://github.com/pandas-dev/pandas) для формирования датафрейма и его сохранения в формат `csv`
 
 ---
-## **Установка и запуск через Python**
+## Установка и запуск через Python
 
 **1) Клонирование репозитория**  
 
@@ -68,7 +71,7 @@ python3 app.py
 Приложение доступно через некоторое время после запуска (после первоначальной загрузки моделей)
 
 ---
-## **Установка и запуск через Docker**
+## Установка и запуск через Docker
 
 Для запуска приложения с поддержкой GPU CUDA необходима установка [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#installation).
 
@@ -131,4 +134,3 @@ docker run -d --gpus all -p 7860:7860 -v ./models:/app/models yolo-detector:cuda
 ## Лицензия
 
 Этот проект лицензирован на условиях лицензии [AGPL-3.0 License](./LICENSE).
-
