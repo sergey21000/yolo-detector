@@ -1,3 +1,3 @@
-ultralytics>=8.3.1
-gradio>5
-yt_dlp
+ultralytics==8.3.1
+yt_dlp==2024.10.7
+gradio==5.1.0
