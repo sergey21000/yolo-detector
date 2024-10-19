@@ -129,9 +129,8 @@ docker run -d --gpus all -p 7860:7860 -v ./models:/app/models yolo-detector:cuda
 
 ---
 *Проблемы*  
-При деплое на удаленных серверах загрузка видео с YouTube через `yt_dlp` может выдавать ошибку  
+При деплое на удаленных серверах их IP часто оказываются в черных списках YouTube, поэтому загрузка видео через `yt_dlp` может выдавать ошибку  
 [Sign in to confirm you’re not a bot. This helps protect our community #10128](https://github.com/yt-dlp/yt-dlp/issues/10128)
-
 
 ---
 
