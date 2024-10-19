@@ -36,7 +36,7 @@ def detect_video(video_path_or_url: str, model: YOLO, conf: float, iou: float) -
     progress = gr.Progress()
     video_path = video_path_or_url
     if 'youtube.com' in video_path_or_url or 'youtu.be' in video_path_or_url:
-        progress(0.001, desc='Downloading videos from YouTube...')
+        progress(0.001, desc='Downloading video from YouTube...')
         ydl_opts = {'format': 'bestvideo[height<=720]'}
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             video_info_dict = ydl.extract_info(video_path_or_url, download=True)
