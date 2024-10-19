@@ -3,7 +3,7 @@
 
 <div align="center">
 
-![App interface](./screenshots/main_page.png)
+![App interface](./screenshots/main.png)
 
 </div>
 
