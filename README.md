@@ -4,7 +4,6 @@
 <div align="center">
 
 ![App interface](./screenshots/main.png)
-
 </div>
 
 ---
@@ -39,6 +38,8 @@
 - [ultralytics](https://github.com/ultralytics/ultralytics) для детекции объектов с помощью моделей YOLOv11
 - [gradio](https://github.com/gradio-app/gradio) для написания веб-интерфейса
 - [pandas](https://github.com/pandas-dev/pandas) для формирования датафрейма и его сохранения в формат `csv`
+
+Работоспособность приложения проверялась на Ubuntu 22.04 (python 3.10) и Windows 10 (python 3.12)
 
 ---
 ## Установка и запуск через Python
@@ -127,8 +128,13 @@ docker run -d --gpus all -p 7860:7860 -v ./models:/app/models yolo-detector:cuda
 Приложение доступно через некоторое время после запуска (после первоначальной загрузки моделей)
 
 ---
+*Проблемы*  
+При деплое на удаленных серверах загрузка видео с YouTube через `yt_dlp` может выдавать ошибку  
+[Sign in to confirm you’re not a bot. This helps protect our community #10128](https://github.com/yt-dlp/yt-dlp/issues/10128)
 
-Работоспособность приложения проверялась на Ubuntu 22.04 (python 3.10) и Windows 10 (python 3.12)
+
+---
+
 Приложение написано для демонстрационных и образовательных целей, оно не предназначалось и не тестировалось для промышленного использования
 
 ## Лицензия
