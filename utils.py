@@ -131,7 +131,7 @@ def get_matplotlib_fig(csv_annotations_path: str):
     axes[1].set_title('Распределение уверенности детекции по классам')
     axes[1].set_xlabel('Класс объекта')
     axes[1].set_ylabel('Уверенность')
-    axes[1].tick_params(axis='x', labelrotation=45)
+    # axes[1].tick_params(axis='x', labelrotation=45)
 
     sns.countplot(
         data=df_clean,
