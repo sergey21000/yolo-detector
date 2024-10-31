@@ -24,7 +24,7 @@
 <details>
 <summary>Скриншот страницы отображения графиков результатов детекции видео</summary>
 
-![Главная страница](./screenshots/video_detect_results.png.png)
+![Страница результатов](./screenshots/video_detect_results.png)
 </details>
 
 ---
