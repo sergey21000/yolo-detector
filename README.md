@@ -1,4 +1,5 @@
 
+
 ---
 ## Детектор объектов YOLOv11
 
@@ -50,6 +51,7 @@
 
 ---
 **Проблемы**  
+
 При деплое на удаленных серверах их IP часто оказываются в черных списках YouTube, поэтому загрузка видео через `yt_dlp` может выдавать ошибку  
 [Sign in to confirm you’re not a bot. This helps protect our community #10128](https://github.com/yt-dlp/yt-dlp/issues/10128)
 
@@ -64,20 +66,42 @@ git clone https://github.com/sergey21000/yolo-detector.git
 cd yolo-detector
 ```
 
-**2) Установка зависимостей**  
+**2) Создание и активация виртуального окружения (опционально)**
 
-С поддержкой CPU
-```
-pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
-```
+- *Linux*
+  ```
+  python3 -m venv env
+  source env/bin/activate
+  ```
 
-С поддержкой CUDA 12.4
-```
-pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu124
-```
+- *Windows CMD*
+  ```
+  python -m venv env
+  env\Scripts\activate
+  ```
+
+- *Windows PowerShell*
+  ```
+  python -m venv env
+  env\Scripts\activate.ps1
+  ```
+
+**3) Установка зависимостей**  
+
+- *С поддержкой CPU*
+  ```
+  pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+  ```
+
+- *С поддержкой CUDA 12.4*
+  ```
+  pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu124
+  ```
+
 [Страница](https://pytorch.org/get-started/locally/#start-locally) устанвки Pytorch где можно выбрать `--extra-index-url` для других версий CUDA
 
-**3) Запуск сервера Gradio**  
+**4) Запуск сервера Gradio**  
+
 ```
 python3 app.py
 ```
@@ -113,29 +137,27 @@ cd yolo-detector
 
 **2) Сборка образа и запуск контейнера**
 
-*С поддержкой CPU*
+- *С поддержкой CPU*
 
-Сборка образа
-```
-docker build -t yolo-detector:cpu -f Dockerfile-cpu .
-```
+  Сборка образа
+  ```
+  docker build -t yolo-detector:cpu -f Dockerfile-cpu .
+  ```
+  Запуск контейнера
+  ```
+  docker run -d -p 7860:7860 -v ./models:/app/models yolo-detector:cpu
+  ```
 
-Запуск контейнера
-```
-docker run -d -p 7860:7860 -v ./models:/app/models yolo-detector:cpu
-```
+- *С поддержкой CUDA*
 
-*С поддержкой CUDA*
-
-Сборка образа
-```
-docker build -t yolo-detector:cuda -f Dockerfile-cuda .
-```
-
-Запуск контейнера
-```
-docker run -d --gpus all -p 7860:7860 -v ./models:/app/models yolo-detector:cuda
-```
+  Сборка образа
+  ```
+  docker build -t yolo-detector:cuda -f Dockerfile-cuda .
+  ```
+  Запуск контейнера
+  ```
+  docker run -d --gpus all -p 7860:7860 -v ./models:/app/models yolo-detector:cuda
+  ```
 
 После запуска сервера перейти в браузере по адресу http://localhost:7860/  
 Приложение доступно через некоторое время после запуска (после первоначальной загрузки моделей)
