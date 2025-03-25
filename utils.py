@@ -54,8 +54,8 @@ def detect_video(video_path_or_url: str, model: YOLO, conf: float, iou: float) -
 
     generator = model.predict(
         source=video_path,
-        conf=0.5,
-        iou=0.5,
+        conf=conf,
+        iou=iou,
         save=True,
         save_txt=True,
         save_conf=True,
