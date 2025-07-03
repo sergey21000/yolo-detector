@@ -14,6 +14,9 @@ from utils import (
     get_matplotlib_fig,
 )
 
+from dotenv import load_dotenv
+load_dotenv(dotenv_path='gradio_env')
+
 
 # ======================= MODEL ===================================
 
@@ -102,7 +105,13 @@ def get_download_csv_btn(csv_annotations_path: Optional[Path] = None):
 
 # =================== APPINTERFACE ==========================
 
-css = '''.gradio-container {width: 70% !important}'''
+# css = None
+css = '''
+.gradio-container {
+    width: 70% !important;
+    margin: 0 auto !important;
+}
+'''
 
 with gr.Blocks(css=css) as demo:
     with gr.Tab('Detection image / video'):
@@ -195,4 +204,5 @@ with gr.Blocks(css=css) as demo:
             outputs=gr.Plot(),
         )
 
-demo.launch(server_name='0.0.0.0')  # debug=True
+if __name__ == '__main__':
+    demo.launch()

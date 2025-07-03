@@ -1,3 +1,4 @@
 ultralytics==8.3.25
-yt_dlp==2024.10.7
-gradio>5
+yt_dlp==2025.6.30
+gradio==5.35.0
+python-dotenv==1.1.1
