@@ -2,8 +2,10 @@ FROM ultralytics/ultralytics:latest
 WORKDIR /app
 RUN apt-get update && apt-get install --no-install-recommends -y ffmpeg
 ENV PATH="/usr/bin:${PATH}"
-RUN pip install --no-cache-dir gradio yt_dlp
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 COPY yolo_classes.json .
-COPY utils.py app.py gradio_env .
+COPY utils.py app.py .
+ENV GRADIO_SERVER_NAME=0.0.0.0
 EXPOSE 7860
 CMD ["python3", "app.py"]
