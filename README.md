@@ -138,17 +138,15 @@ python3 app.py
 
 *Загрузка Compose с поддержкой CPU*
 ```
-curl -fsSL --remote-name \
-	https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.base.yml \
-	https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cpu.yml
+curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.base.yml
+curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cpu.yml
 export COMPOSE_FILE=compose.run.cpu.yml
 ```
 
 *Загрузка Compose с поддержкой CUDA*
 ```
-curl -fsSL --remote-name \
-	https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.base.yml \
-	https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cuda.yml
+curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.base.yml
+curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cuda.yml
 export COMPOSE_FILE=compose.run.cuda.yml
 ```
 
@@ -166,14 +164,12 @@ http://localhost:7860/
 
 **Запуск Compose с сервером Nginx**
 ```
-curl -fsSL --remote-name \
-	https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.base.yml \
-	https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cpu.yml \
-	https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.nginx.yml
-mkdir -p nginx && curl -fsSL -o nginx/nginx.conf https://raw.githubusercontent.com/sergey21000/yolo-detector/main/nginx/nginx.conf
-
+curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.base.yml
+curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cpu.yml
+curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.nginx.yml
+mkdir -p nginx
+curl -fsSL -o nginx/nginx.conf https://raw.githubusercontent.com/sergey21000/yolo-detector/main/nginx/nginx.conf
 export COMPOSE_FILE=compose.run.cpu.yml:compose.nginx.yml
-
 docker compose up -d
 ```
 
