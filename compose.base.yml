@@ -1,6 +1,7 @@
 services:
   gradio-app:
     container_name: yolo-detector
+    restart: on-failure
     ports:
       - 7860:7860
     volumes:
