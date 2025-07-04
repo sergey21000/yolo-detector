@@ -108,9 +108,9 @@ cd yolo-detector
   pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
   ```
 
-- *С поддержкой CUDA 12.4*
+- *С поддержкой CUDA 12.6*
   ```
-  pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu124
+  pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu126
   ```
 
 [Страница](https://pytorch.org/get-started/locally/#start-locally) устанвки Pytorch где можно выбрать `--extra-index-url` для других версий CUDA
