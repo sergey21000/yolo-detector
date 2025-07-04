@@ -158,9 +158,9 @@ http://localhost:7860/
 Приложение доступно через некоторое время после запуска (после первоначальной загрузки моделей)
 
 ---
-<u>**Дополнительно**</u>
+<ins><b>Дополнительно</b></ins>
 
-*Запуск Compose с сервером Nginx*
+**Запуск Compose с сервером Nginx**
 ```
 curl -fsSL --remote-name \
 	https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cpu.yml \
@@ -175,20 +175,21 @@ docker compose up -d
 Веб-интерфейс сервера доступен по адресу  
 http://localhost/  
 
-*Как загрузить Compose и установить переменную окружения в Windows*
+**Как загрузить Compose и установить переменную окружения в Windows**
 
-*CMD*
+- *CMD* (каждую команду выполнять отдельно)
 ```
 curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose/compose.run.cpu.yml
 set COMPOSE_FILE=compose.run.cpu.yml
 echo %COMPOSE_FILE%
 ```
 
-*PowerShell* (слеши для путей файлов можно ставить как в Linux `/`)
+- *PowerShell* (можно вставить сразу весь блок)
 ```
-curl.exe -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose/compose.run.cpu.yml
+curl.exe -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cpu.yml
 $env:COMPOSE_FILE = "compose.run.cpu.yml"
 echo $env:COMPOSE_FILE
+
 ```
 
 Для перечисления нескольких файлов в переменной `COMPOSE_FILE` в Windows использовать разделитель `;`
