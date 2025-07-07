@@ -2,9 +2,9 @@ FROM ultralytics/ultralytics:latest
 WORKDIR /app
 RUN apt-get update && apt-get install --no-install-recommends -y ffmpeg && rm -rf /var/lib/apt/lists/*
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir $(grep -v '^ultralytics' requirements.txt)
 COPY yolo_classes.json .
-COPY utils.py app.py .
+COPY utils.py config.py app.py .
 ENV GRADIO_SERVER_NAME=0.0.0.0
 EXPOSE 7860
 CMD ["python3", "app.py"]
