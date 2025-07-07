@@ -3,7 +3,7 @@ services:
     extends:
       file: compose.base.yml
       service: gradio-app
-    image: sergey21000/yolo-detector:cuda
+    image: sergey21000/yolo-detector:ultralytics-cuda
     deploy:
       resources:
         reservations:

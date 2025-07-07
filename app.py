@@ -15,9 +15,10 @@ load_dotenv(dotenv_path='gradio_env')
 from config import Config as CONFIG, DetectConfig
 from utils import (
     download_model,
-    detect_image, 
-    detect_video, 
-    get_csv_annotate, 
+    detect_image,
+    detect_webcam,
+    detect_video,
+    get_csv_annotate,
     get_matplotlib_fig,
 )
 
@@ -117,26 +118,6 @@ def update_detect_status(detect_result, status_message) -> str:
     else:
         status = get_ready_status()
     return status
-
-
-def detect_webcam(
-        np_image: np.ndarray,
-        model_state: dict[str, YOLO],
-        conf: float,
-        iou: float,
-        detect_mode: str,
-        tracker_name: str,
-    ) -> np.ndarray:
-    detect_config = DetectConfig(
-        source=np_image,
-        model=model_state['model'],
-        conf=conf,
-        iou=iou,
-        detect_mode=detect_mode,
-        tracker_name=tracker_name,
-    )
-    new_np_image = detect_image(detect_config)
-    return new_np_image
 
 
 def clear_results_dir(detect_result: np.ndarray | Path | None) -> None:
@@ -295,7 +276,6 @@ with gr.Blocks(css=css) as demo:
             fn=change_model,
             inputs=[model_state, model_name],
             outputs=[status_message],
-            show_progress='hidden',
         ).success(
             fn=lambda: gr.update(interactive=True),
             inputs=None,
@@ -314,7 +294,6 @@ with gr.Blocks(css=css) as demo:
             fn=change_model,
             inputs=[model_state, model_name],
             outputs=[status_message],
-            show_progress='hidden',
         ).then(
             fn=lambda: gr.update(interactive=True),
             inputs=None,
@@ -344,26 +323,23 @@ with gr.Blocks(css=css) as demo:
             outputs=[status_message],
         )
 
-        detect_btn.click(
+        detect_event_start = detect_btn.click(
             fn=lambda: gr.update(visible=True),
             inputs=None,
             outputs=[stop_btn],
             queue=False,
-        )
-        detect_btn.click(
+        ).then(
             fn=reset_flags,
             inputs=None,
             outputs=[first_call_flag, double_call_flag],
             queue=False,
-        )
-        detect_btn.click(
+        ).then(
             fn=reinit_model,
             inputs=[model_state, model_name, reinit_tracker],
             outputs=None,
             queue=False,
         )
-
-        detect_event = detect_btn.click(
+        detect_event = detect_event_start.then(
             fn=detect,
             inputs=[file_path, file_link, model_state, conf, iou, detect_mode, tracker_name],
             outputs=[detect_result, status_message],
@@ -375,12 +351,12 @@ with gr.Blocks(css=css) as demo:
             outputs=[stop_btn],
             queue=False,
         )
-        double_call_event = detect_event.success(
+        block_double_call_event = detect_event.success(
             fn=block_double_call,
             inputs=[detect_result, first_call_flag, double_call_flag],
             outputs=[detect_result, first_call_flag, double_call_flag],
         )
-        double_call_event.success(
+        block_double_call_event.then(
             fn=get_video_path_from_ultralytics_result,
             inputs=[detect_result],
             outputs=[detect_result],
@@ -458,37 +434,37 @@ with gr.Blocks(css=css) as demo:
                 )
                 with gr.Column():
                     with gr.Row():
-                        detect_mode = gr.Radio(
+                        detect_mode_webcam = gr.Radio(
                             choices=CONFIG.DETECT_MODE_NAMES,
                             value=CONFIG.DETECT_MODE_NAMES[0],
                             label='Detect Mode',
                         )
-                        tracker_name = gr.Radio(
+                        tracker_name_webcam = gr.Radio(
                             choices=CONFIG.TRACKER_NAMES,
                             value=CONFIG.TRACKER_NAMES[0],
                             label='Tracker Name',
-                            visible=detect_mode.value == 'Tracking',
+                            visible=detect_mode_webcam.value == 'Tracking',
                         )
-                    conf = gr.Slider(0, 1, value=0.5, step=0.05, label='Confidence')
-                    iou = gr.Slider(0, 1, value=0.7, step=0.05, label='IOU')
+                    conf_webcam = gr.Slider(0, 1, value=0.5, step=0.05, label='Confidence')
+                    iou_webcam = gr.Slider(0, 1, value=0.7, step=0.05, label='IOU')
                     
-        detect_mode.change(
-            fn=lambda mode: gr.update(visible=True) if mode == 'Tracking' else gr.skip(),
-            inputs=[detect_mode],
-            outputs=[tracker_name],
+        detect_mode_webcam.change(
+            fn=lambda mode: gr.update(visible=True) if mode == 'Tracking' else gr.update(visible=False),
+            inputs=[detect_mode_webcam],
+            outputs=[tracker_name_webcam],
         ).then(
             fn=change_model,
             inputs=[model_state, model_name],
             outputs=[status_message],
         )
-        tracker_name.change(
+        tracker_name_webcam.change(
             fn=change_model,
             inputs=[model_state, model_name],
             outputs=[status_message],
         )
         webcam.stream(
             fn=detect_webcam,
-            inputs=[webcam, model_state, conf, iou, detect_mode, tracker_name],
+            inputs=[webcam, model_state, conf_webcam, iou_webcam, detect_mode_webcam, tracker_name_webcam],
             outputs=[webcam],
             time_limit=CONFIG.WEBCAM_TIME_LIMIT,
         )

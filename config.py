@@ -27,7 +27,7 @@ class Config:
     DETECT_MODE_NAMES: list[str] = ['Detection', 'Tracking']
     TRACKERS: dict[str, str] = {'ByteTrack': 'bytetrack.yaml', 'BoT-SORT': 'botsort.yaml'}
     TRACKER_NAMES: list[str] = list(TRACKERS.keys())
-    WEBCAM_TIME_LIMIT: int = 30
+    WEBCAM_TIME_LIMIT: int = 60
 
 
 @dataclass
@@ -38,5 +38,8 @@ class DetectConfig:
     iou: float
     detect_mode: str
     tracker_name: str
+    
     verbose: bool = False
+    save_image_predicts: bool = False
+    save_video_predicts: bool = True
     results_dir: str | Path = 'runs'

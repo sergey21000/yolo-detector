@@ -37,6 +37,7 @@ def detect_image(detect_config: DetectConfig) -> np.ndarray:
         source=detect_config.source,
         conf=detect_config.conf,
         iou=detect_config.iou,
+        save=detect_config.save_image_predicts,
         verbose=detect_config.verbose,
         project=detect_config.results_dir,
     )
@@ -49,6 +50,26 @@ def detect_image(detect_config: DetectConfig) -> np.ndarray:
     np_image = detections[0].plot()
     return np_image
 
+
+def detect_webcam(
+        np_image: np.ndarray,
+        model_state: dict[str, YOLO],
+        conf: float,
+        iou: float,
+        detect_mode: str,
+        tracker_name: str,
+    ) -> np.ndarray:
+    detect_config = DetectConfig(
+        source=np_image,
+        model=model_state['model'],
+        conf=conf,
+        iou=iou,
+        detect_mode=detect_mode,
+        tracker_name=tracker_name,
+    )
+    new_np_image = detect_image(detect_config)
+    return new_np_image
+ 
 
 def detect_video(detect_config: DetectConfig) -> tuple[UltralyticsResults, int, int]:
     video_path = detect_config.source
@@ -68,10 +89,10 @@ def detect_video(detect_config: DetectConfig) -> tuple[UltralyticsResults, int, 
         source=video_path,
         conf=detect_config.conf,
         iou=detect_config.iou,
-        save=True,
         save_txt=True,
         save_conf=True,
         stream=True,
+        save=detect_config.save_video_predicts,
         verbose=detect_config.verbose,
         project=detect_config.results_dir,
     )
@@ -88,17 +109,21 @@ def detect_video(detect_config: DetectConfig) -> tuple[UltralyticsResults, int, 
 
 
 def get_csv_annotate(
-        result_video_path: Path,
+        result_video_path: np.ndarray | Path | None,
         curr_csv_annotations_path: str | None,
         double_call_flag: bool = False,
-    ) -> Path:
+    ) -> Path | None:
+
     if not isinstance(result_video_path, Path) or double_call_flag:
         return curr_csv_annotations_path
 
+    is_tracking = 'track' in result_video_path.parent.stem
     txts_path = result_video_path.parent / 'labels'
     escaped_pattern = glob.escape(result_video_path.stem)
     matching_txts_path = sorted(txts_path.glob(f'{escaped_pattern}_*.txt'), key=os.path.getmtime)
-    is_tracking = 'track' in result_video_path.parent.stem
+    if not matching_txts_path:
+        gr.Info('No txt detection results')
+        return curr_csv_annotations_path
     
     df_list = []
     for txt_path in matching_txts_path:
