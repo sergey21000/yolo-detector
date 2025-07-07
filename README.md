@@ -250,12 +250,18 @@ http://localhost:7860/
 
 *С поддержкой CPU*
 ```
-docker run -d -p 7860:7860 -v ./models:/app/models sergey21000/yolo-detector:cpu
+docker run -d -p 7860:7860 \
+	-v ./models:/app/models \
+	-v ./runs:/app/runs \
+	sergey21000/yolo-detector:cpu
 ```
 
 *С поддержкой CUDA*
 ```
-docker run -d --gpus all -p 7860:7860 -v ./models:/app/models sergey21000/yolo-detector:cuda
+docker run -d --gpus all -p 7860:7860 \
+	-v ./models:/app/models \
+	-v ./runs:/app/runs \
+	sergey21000/yolo-detector:cuda
 ```
 
 Веб-интерфейс сервера доступен по адресу  
@@ -281,7 +287,10 @@ cd yolo-detector
   ```
   Запуск контейнера
   ```
-  docker run -d -p 7860:7860 -v ./models:/app/models yolo-detector:cpu
+  docker run -d -p 7860:7860 \
+      -v ./models:/app/models \
+      -v ./runs:/app/runs \
+      yolo-detector:cpu
   ```
 
 - *С поддержкой CUDA*
@@ -292,7 +301,10 @@ cd yolo-detector
   ```
   Запуск контейнера
   ```
-  docker run -d --gpus all -p 7860:7860 -v ./models:/app/models yolo-detector:cuda
+  docker run -d --gpus all -p 7860:7860 \
+      -v ./models:/app/models \
+      -v ./runs:/app/runs \
+      yolo-detector:cuda
   ```
 
 Веб-интерфейс сервера доступен по адресу  
