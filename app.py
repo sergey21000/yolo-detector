@@ -181,7 +181,7 @@ def get_output_media_components(
         value=detect_result if visible else None,
         type='numpy',
         width=800,
-        height=640, # 640, 680, 720
+        height=636, # 640, 680, 720
         visible=visible,
         label='Output',
     )
@@ -189,7 +189,7 @@ def get_output_media_components(
     video_output = gr.Video(
         value=detect_result if visible else None,
         width=800,
-        height=640,
+        height=636,
         visible=visible,
         label='Output',
     )

@@ -37,7 +37,8 @@ def detect_image(detect_config: DetectConfig) -> np.ndarray:
         source=detect_config.source,
         conf=detect_config.conf,
         iou=detect_config.iou,
-        verbose=False,
+        verbose=detect_config.verbose,
+        project=detect_config.results_dir,
     )
     if detect_config.detect_mode == 'Tracking':
         detect_func = detect_config.model.track
@@ -71,7 +72,8 @@ def detect_video(detect_config: DetectConfig) -> tuple[UltralyticsResults, int, 
         save_txt=True,
         save_conf=True,
         stream=True,
-        verbose=False,
+        verbose=detect_config.verbose,
+        project=detect_config.results_dir,
     )
     if detect_config.detect_mode == 'Tracking':
         detect_func = detect_config.model.track

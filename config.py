@@ -38,3 +38,5 @@ class DetectConfig:
     iou: float
     detect_mode: str
     tracker_name: str
+    verbose: bool = False
+    results_dir: str | Path = 'runs'
