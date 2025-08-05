@@ -86,7 +86,7 @@
 
 **1) Клонирование репозитория**  
 
-```
+```sh
 git clone https://github.com/sergey21000/yolo-detector.git
 cd yolo-detector
 ```
@@ -94,19 +94,19 @@ cd yolo-detector
 **2) Создание и активация виртуального окружения (опционально)**
 
 - *Linux*
-  ```
+  ```sh
   python3 -m venv env
   source env/bin/activate
   ```
 
 - *Windows CMD*
-  ```
+  ```sh
   python -m venv env
   env\Scripts\activate
   ```
 
 - *Windows PowerShell*
-  ```
+  ```powershell
   python -m venv env
   env\Scripts\activate.ps1
   ```
@@ -114,12 +114,12 @@ cd yolo-detector
 **3) Установка зависимостей**  
 
 - *С поддержкой CPU*
-  ```
+  ```sh
   pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
   ```
 
 - *С поддержкой CUDA 12.8*
-  ```
+  ```sh
   pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu128
   ```
 
@@ -127,7 +127,7 @@ cd yolo-detector
 
 **4) Запуск сервера Gradio**  
 
-```
+```sh
 python3 app.py
 ```
 После запуска сервера перейти в браузере по адресу http://127.0.0.1:7860/  
@@ -147,21 +147,21 @@ python3 app.py
 **1) Загрузка Compose и установка переменной `COMPOSE_FILE`**
 
 *Загрузка Compose с поддержкой CPU*
-```
+```sh
 curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.base.yml
 curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cpu.yml
 export COMPOSE_FILE=compose.run.cpu.yml
 ```
 
 *Загрузка Compose с поддержкой CUDA*
-```
+```sh
 curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.base.yml
 curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cuda.yml
 export COMPOSE_FILE=compose.run.cuda.yml
 ```
 
 **2) Запуск Compose**
-```
+```sh
 docker compose up -d
 ```
 
@@ -173,7 +173,7 @@ http://127.0.0.1:7860/
 <ins><b>Дополнительно</b></ins>
 
 **Запуск Compose с сервером Nginx**
-```
+```sh
 curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.base.yml
 curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cpu.yml
 curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.nginx.yml
@@ -189,7 +189,7 @@ http://127.0.0.1
 **Как загрузить Compose и установить переменную окружения в Windows**
 
 - *PowerShell* (можно вставить сразу весь блок)
-```
+```powershell
 curl.exe -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.base.yml
 curl.exe -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cpu.yml
 $env:COMPOSE_FILE = "compose.run.cpu.yml"
@@ -198,7 +198,7 @@ echo $env:COMPOSE_FILE
 ```
 
 - *CMD* (каждую команду выполнять отдельно)
-```
+```sh
 curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.base.yml
 
 curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cpu.yml
@@ -209,7 +209,7 @@ echo %COMPOSE_FILE%
 ```
 
 Для перечисления нескольких файлов в переменной `COMPOSE_FILE` в Windows использовать разделитель `;`
-```
+```powershell
 # установка переменной окружения (вариант для Windows PowerShell)
 $env:COMPOSE_FILE = "compose.run.cpu.yml;compose.nginx.yml"
 ```
@@ -218,7 +218,7 @@ $env:COMPOSE_FILE = "compose.run.cpu.yml;compose.nginx.yml"
 ### 🔨 Запуск Compose со сборкой образа
 
 **1) Клонирование репозитория**  
-```bash
+```sh
 git clone https://github.com/sergey21000/yolo-detector.git
 cd yolo-detector
 ```
@@ -226,13 +226,13 @@ cd yolo-detector
 **2) Запуск Compose**
 
 *С поддержкой CPU*
-```
+```sh
 export COMPOSE_FILE=compose.build.cpu.yml
 docker compose up -d
 ```
 
 *С поддержкой CUDA*
-```
+```sh
 export COMPOSE_FILE=compose.build.cuda.yml
 docker compose up -d
 ```
@@ -249,7 +249,7 @@ http://127.0.0.1:7860/
 ### 📥 Запуск контейнера из образа Docker HUB
 
 *С поддержкой CPU*
-```
+```sh
 docker run -d -p 7860:7860 \
 	-v ./models:/app/models \
 	-v ./runs:/app/runs \
@@ -257,7 +257,7 @@ docker run -d -p 7860:7860 \
 ```
 
 *С поддержкой CUDA*
-```
+```sh
 docker run -d --gpus all -p 7860:7860 \
 	-v ./models:/app/models \
 	-v ./runs:/app/runs \
@@ -272,7 +272,7 @@ http://127.0.0.1:7860/
 ### 🔨 Сборка образа из Dockerfile и запуск контейнера
 
 **1) Клонирование репозитория**  
-```bash
+```sh
 git clone https://github.com/sergey21000/yolo-detector.git
 cd yolo-detector
 ```
@@ -282,11 +282,11 @@ cd yolo-detector
 - *С поддержкой CPU*
 
   Сборка образа
-  ```
+  ```sh
   docker build -t yolo-detector:cpu -f Dockerfile-cpu .
   ```
   Запуск контейнера
-  ```
+  ```sh
   docker run -d -p 7860:7860 \
       -v ./models:/app/models \
       -v ./runs:/app/runs \
@@ -296,11 +296,11 @@ cd yolo-detector
 - *С поддержкой CUDA*
 
   Сборка образа
-  ```
+  ```sh
   docker build -t yolo-detector:cuda -f Dockerfile-cuda .
   ```
   Запуск контейнера
-  ```
+  ```sh
   docker run -d --gpus all -p 7860:7860 \
       -v ./models:/app/models \
       -v ./runs:/app/runs \
