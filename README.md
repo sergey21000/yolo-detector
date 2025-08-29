@@ -220,7 +220,7 @@ $env:COMPOSE_FILE = "compose.run.cpu.yml;compose.nginx.yml"
 **1) Клонирование репозитория**  
 ```sh
 git clone https://github.com/sergey21000/yolo-detector.git
-cd yolo-detector
+cd yolo-detector/docker
 ```
 
 **2) Запуск Compose**
@@ -236,6 +236,12 @@ docker compose up -d
 export COMPOSE_FILE=compose.build.cuda.yml
 docker compose up -d
 ```
+
+Или с указанием `compose` файла в одной команде
+```sh
+docker compose -f compose.build.cuda.yml up -d
+```
+
 
 При первом запуске будет произведена сборка образа на основе `Dockerfile-cpu` или `Dockerfile-cuda`
 
@@ -253,7 +259,7 @@ http://127.0.0.1:7860/
 docker run -d -p 7860:7860 \
 	-v ./models:/app/models \
 	-v ./runs:/app/runs \
-	sergey21000/yolo-detector:ultralytics-cpu
+	sergey21000/yolo-detector:main-cpu
 ```
 
 *С поддержкой CUDA*
@@ -261,7 +267,7 @@ docker run -d -p 7860:7860 \
 docker run -d --gpus all -p 7860:7860 \
 	-v ./models:/app/models \
 	-v ./runs:/app/runs \
-	sergey21000/yolo-detector:ultralytics-cuda
+	sergey21000/yolo-detector:main-cuda
 ```
 
 Веб-интерфейс сервера доступен по адресу  
@@ -283,7 +289,7 @@ cd yolo-detector
 
   Сборка образа
   ```sh
-  docker build -t yolo-detector:cpu -f Dockerfile-cpu .
+  docker build -t yolo-detector:cpu -f docker/Dockerfile-cpu .
   ```
   Запуск контейнера
   ```sh
@@ -297,7 +303,7 @@ cd yolo-detector
 
   Сборка образа
   ```sh
-  docker build -t yolo-detector:cuda -f Dockerfile-cuda .
+  docker build -t yolo-detector:cuda -f docker/Dockerfile-cuda .
   ```
   Запуск контейнера
   ```sh
