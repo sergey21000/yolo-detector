@@ -1,0 +1,12 @@
+# FROM ultralytics/ultralytics:latest-cpu
+FROM ultralytics/ultralytics@sha256:5383462bfc137d75188c3e427617bb6868790e9798c7a187e5471f67e1f95aaa
+RUN apt-get update && apt-get install --no-install-recommends -y ffmpeg \
+	&& apt-get clean && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir $(grep -v '^ultralytics' requirements.txt | tr -d '\r')
+COPY yolo_classes.json .
+COPY utils.py config.py app.py .
+ENV GRADIO_SERVER_NAME=0.0.0.0
+EXPOSE 7860
+CMD ["python3", "app.py"]

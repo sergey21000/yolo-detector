@@ -1,0 +1,6 @@
+services:
+  gradio-app:
+    extends:
+      file: compose.base.yml
+      service: gradio-app
+    image: sergey21000/yolo-detector:main-cpu

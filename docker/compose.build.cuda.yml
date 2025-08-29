@@ -1,0 +1,16 @@
+services:
+  gradio-app:
+    extends:
+      file: compose.base.yml
+      service: gradio-app
+    build:
+      context: ..
+      dockerfile: Dockerfile-cuda
+    image: yolo-detector:cuda
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

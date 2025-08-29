@@ -1,0 +1,12 @@
+services:
+  gradio-app:
+    container_name: yolo-detector
+    restart: on-failure
+    ports:
+      - 7860:7860
+    volumes:
+      - ./models:/app/models
+      - ./runs:/app/runs
+    environment:
+      - GRADIO_SERVER_NAME=0.0.0.0
+      - GRADIO_SERVER_PORT=7860

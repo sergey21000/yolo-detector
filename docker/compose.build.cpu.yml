@@ -1,0 +1,9 @@
+services:
+  gradio-app:
+    extends:
+      file: compose.base.yml
+      service: gradio-app
+    build:
+      context: ..
+      dockerfile: Dockerfile-cpu
+    image: yolo-detector:cpu
