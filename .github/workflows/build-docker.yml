@@ -1,0 +1,72 @@
+name: Build and Push Docker (CPU & CUDA)
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_target:
+        description: Images selection (cpu, cuda, both)
+        required: true
+        default: both
+        type: choice
+        options: [both, cuda, cpu]
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build-cpu:
+    runs-on: ubuntu-24.04
+    if: ${{ github.event.inputs.build_target == 'cpu' || github.event.inputs.build_target == 'both' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push CPU image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile-cpu
+          push: true
+          pull: true
+          platforms: linux/amd64
+          tags: |
+            ghcr.io/sergey21000/yolo-detector:${{ github.ref_name }}-cpu
+
+  build-cuda:
+    runs-on: ubuntu-24.04
+    if: ${{ github.event.inputs.build_target == 'cuda' || github.event.inputs.build_target == 'both' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push CUDA image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile-cuda
+          push: true
+          pull: true
+          platforms: linux/amd64
+          tags: |
+            ghcr.io/sergey21000/yolo-detector:${{ github.ref_name }}-cuda
