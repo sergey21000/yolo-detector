@@ -259,7 +259,7 @@ http://127.0.0.1:7860/
 docker run -d -p 7860:7860 \
 	-v ./models:/app/models \
 	-v ./runs:/app/runs \
-	sergey21000/yolo-detector:main-cpu
+	ghcr.io/sergey21000/yolo-detector:main-cpu
 ```
 
 *С поддержкой CUDA*
@@ -267,7 +267,7 @@ docker run -d -p 7860:7860 \
 docker run -d --gpus all -p 7860:7860 \
 	-v ./models:/app/models \
 	-v ./runs:/app/runs \
-	sergey21000/yolo-detector:main-cuda
+	ghcr.io/sergey21000/yolo-detector:main-cuda
 ```
 
 Веб-интерфейс сервера доступен по адресу  
@@ -325,3 +325,4 @@ http://127.0.0.1:7860/
 ## Лицензия
 
 Этот проект лицензирован на условиях лицензии [AGPL-3.0 License](./LICENSE).
+
