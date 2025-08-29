@@ -3,4 +3,4 @@ services:
     extends:
       file: compose.base.yml
       service: gradio-app
-    image: sergey21000/yolo-detector:main-cpu
+    image: ghcr.io/sergey21000/yolo-detector:main-cpu
