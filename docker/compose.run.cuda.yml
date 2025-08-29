@@ -3,11 +3,12 @@ services:
     extends:
       file: compose.base.yml
       service: gradio-app
-    image: sergey21000/yolo-detector:main-cuda
+    image: ghcr.io/sergey21000/yolo-detector:main-cuda
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
               count: 1
+
               capabilities: [gpu]
