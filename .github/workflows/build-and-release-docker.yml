@@ -41,7 +41,7 @@ jobs:
           pull: true
           platforms: linux/amd64
           tags: |
-            ghcr.io/sergey21000/yolo-detector:${{ github.ref_name }}-cpu
+            ghcr.io/${{ github.repository }}:${{ github.ref_name }}-cpu
 
   build-cuda:
     runs-on: ubuntu-24.04
@@ -69,4 +69,4 @@ jobs:
           pull: true
           platforms: linux/amd64
           tags: |
-            ghcr.io/sergey21000/yolo-detector:${{ github.ref_name }}-cuda
+            ghcr.io/${{ github.repository }}:${{ github.ref_name }}-cuda
