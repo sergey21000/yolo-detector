@@ -23,6 +23,7 @@ jobs:
         run: |
           git clone https://huggingface.co/spaces/$REPO_OWNER/$REPO_NAME
           rsync -av \
+            --exclude 'README.md' \
             --exclude '.git' \
             --exclude '.github' \
             --exclude 'hf-spaces-deploy' \
