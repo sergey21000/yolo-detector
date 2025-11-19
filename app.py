@@ -12,7 +12,7 @@ from matplotlib.figure import Figure as MatplotlibFigure
 from dotenv import load_dotenv
 load_dotenv(dotenv_path='gradio_env')
 
-from config import Config as CONFIG, DetectConfig
+from config import Config as CONFIG, DetectConfig, WebcamMode
 from utils import (
     download_model,
     detect_image,
@@ -423,16 +423,26 @@ with gr.Blocks(css=css) as demo:
     with gr.Tab('Webcam detection'):
         with gr.Column(elem_classes=['webcam-column']):
             with gr.Group(elem_classes=['webcam-group']):
-                webcam = WebRTC(
-                    label='Webcam Stream',
-                    height=None,
-                    width=None,
-                    mode='send-receive',
-                    modality='video',
-                    mirror_webcam=False,
-                    rtp_params={'degradationPreference': 'maintain-resolution'},
-                    full_screen=False,
-                )
+                if CONFIG.WEBCAM_MODE == WebcamMode.WEBRTC:
+                    webcam = WebRTC(
+                        label='Webcam Stream',
+                        height=None,
+                        width=None,
+                        mode='send-receive',
+                        modality='video',
+                        mirror_webcam=False,
+                        rtp_params={'degradationPreference': 'maintain-resolution'},
+                        full_screen=False,
+                    )
+                elif CONFIG.WEBCAM_MODE == WebcamMode.GRADIO:
+                    webcam = gr.Image(
+                        sources=['webcam'],
+                        label='Webcam Stream',
+                        height=None,
+                        width=None,
+                        mirror_webcam=False,
+                        streaming=True,
+                    )
                 with gr.Column():
                     with gr.Row():
                         detect_mode_webcam = gr.Radio(
@@ -472,5 +482,4 @@ with gr.Blocks(css=css) as demo:
         )
 
 if __name__ == '__main__':
-
     demo.launch()
