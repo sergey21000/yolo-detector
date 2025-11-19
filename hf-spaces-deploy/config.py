@@ -1,9 +1,15 @@
 import json
 from pathlib import Path
 from dataclasses import dataclass
+from enum import Enum
 
 import numpy as np
 from ultralytics import YOLO
+
+
+class WebcamMode(Enum):
+    GRADIO = 'gradio'
+    WEBRTC = 'webrtc'
 
 
 class Config:
@@ -29,7 +35,8 @@ class Config:
     TRACKER_NAMES: list[str] = list(TRACKERS.keys())
     WEBCAM_TIME_LIMIT: int = 60
     WEBCAM_MAX_WINDOW_WIDTH: int = 600
-    
+    WEBCAM_MODE: WebcamMode = WebcamMode.WEBRTC  # WebcamMode.WEBRTC or WebcamMode.GRADIO
+
 
 @dataclass
 class DetectConfig:
@@ -39,7 +46,6 @@ class DetectConfig:
     iou: float
     detect_mode: str
     tracker_name: str
-    
     verbose: bool = False
     save_image_predicts: bool = False
     save_video_predicts: bool = True
