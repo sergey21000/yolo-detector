@@ -28,7 +28,8 @@ class Config:
     TRACKERS: dict[str, str] = {'ByteTrack': 'bytetrack.yaml', 'BoT-SORT': 'botsort.yaml'}
     TRACKER_NAMES: list[str] = list(TRACKERS.keys())
     WEBCAM_TIME_LIMIT: int = 60
-
+    WEBCAM_MAX_WINDOW_WIDTH: int = 600
+    
 
 @dataclass
 class DetectConfig:

@@ -211,20 +211,20 @@ def get_download_csv_btn(csv_annotations_path: Path | None = None) -> gr.Downloa
 
 # =================== APP INTERFACE ==========================
 
-css = '''
-.gradio-container {
+css = f'''
+.gradio-container {{
     width:85% !important;
     margin: 0 auto !important;
-}
-.webcam-group {
-    max-width: 600px !important; 
+}}
+.webcam-group {{
+    max-width: {Config.WEBCAM_MAX_WINDOW_WIDTH}px !important; 
     max-height: none !important;
-}
-.webcam-column {
+}}
+.webcam-column {{
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-}
+}}
 '''
 
 with gr.Blocks(css=css) as demo:
@@ -429,8 +429,9 @@ with gr.Blocks(css=css) as demo:
                     width=None,
                     mode='send-receive',
                     modality='video',
-                    mirror_webcam=True,
+                    mirror_webcam=False,
                     rtp_params={'degradationPreference': 'maintain-resolution'},
+                    full_screen=False,
                 )
                 with gr.Column():
                     with gr.Row():
@@ -467,6 +468,7 @@ with gr.Blocks(css=css) as demo:
             inputs=[webcam, model_state, conf_webcam, iou_webcam, detect_mode_webcam, tracker_name_webcam],
             outputs=[webcam],
             time_limit=CONFIG.WEBCAM_TIME_LIMIT,
+            concurrency_limit=1,
         )
 
 if __name__ == '__main__':
