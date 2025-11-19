@@ -194,8 +194,8 @@ http://127.0.0.1
 
 - *PowerShell* (можно вставить сразу весь блок)
 ```powershell
-curl.exe -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.base.yml
-curl.exe -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cpu.yml
+curl.exe -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.base.yml
+curl.exe -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.run.cpu.yml
 $env:COMPOSE_FILE = "compose.run.cpu.yml"
 echo $env:COMPOSE_FILE
 
@@ -203,9 +203,9 @@ echo $env:COMPOSE_FILE
 
 - *CMD* (каждую команду выполнять отдельно)
 ```sh
-curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.base.yml
+curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.base.yml
 
-curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cpu.yml
+curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.run.cpu.yml
 
 set COMPOSE_FILE=compose.run.cpu.yml
 
