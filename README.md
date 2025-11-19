@@ -148,15 +148,15 @@ python3 app.py
 
 *Загрузка Compose с поддержкой CPU*
 ```sh
-curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.base.yml
-curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cpu.yml
+curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.base.yml
+curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.run.cpu.yml
 export COMPOSE_FILE=compose.run.cpu.yml
 ```
 
 *Загрузка Compose с поддержкой CUDA*
 ```sh
-curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.base.yml
-curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cuda.yml
+curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.base.yml
+curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.run.cuda.yml
 export COMPOSE_FILE=compose.run.cuda.yml
 ```
 
@@ -178,9 +178,9 @@ http://127.0.0.1:7860/
 
 **Запуск Compose с сервером Nginx**
 ```sh
-curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.base.yml
-curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.run.cpu.yml
-curl -fsSL --remote-name https://raw.githubusercontent.com/sergey21000/yolo-detector/main/compose.nginx.yml
+curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.base.yml
+curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.run.cpu.yml
+curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.nginx.yml
 mkdir -p nginx
 curl -fsSL -o nginx/nginx.conf https://raw.githubusercontent.com/sergey21000/yolo-detector/main/nginx/nginx.conf
 export COMPOSE_FILE=compose.run.cpu.yml:compose.nginx.yml
