@@ -217,7 +217,7 @@ css = f'''
     margin: 0 auto !important;
 }}
 .webcam-group {{
-    max-width: {Config.WEBCAM_MAX_WINDOW_WIDTH}px !important; 
+    max-width: {CONFIG.WEBCAM_MAX_WINDOW_WIDTH}px !important; 
     max-height: none !important;
 }}
 .webcam-column {{
@@ -472,4 +472,5 @@ with gr.Blocks(css=css) as demo:
         )
 
 if __name__ == '__main__':
+
     demo.launch()
