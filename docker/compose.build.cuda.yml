@@ -5,7 +5,7 @@ services:
       service: gradio-app
     build:
       context: ..
-      dockerfile: Dockerfile-cuda
+      dockerfile: docker/Dockerfile-cuda
     image: yolo-detector:cuda
     deploy:
       resources:

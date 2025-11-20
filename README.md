@@ -145,20 +145,21 @@ python3 app.py
 
 ### 📥 Запуск Compose из образа Docker HUB
 
-**1) Загрузка Compose и установка переменной `COMPOSE_FILE`**
-
-*Загрузка Compose с поддержкой CPU*
+**1) Клонирование репозитория**  
 ```sh
-curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.base.yml
-curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.run.cpu.yml
-export COMPOSE_FILE=compose.run.cpu.yml
+git clone https://github.com/sergey21000/yolo-detector.git
 ```
 
-*Загрузка Compose с поддержкой CUDA*
+**2) Установка переменной `COMPOSE_FILE`**
+
+*Для запуска с поддержкой CPU*
 ```sh
-curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.base.yml
-curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.run.cuda.yml
-export COMPOSE_FILE=compose.run.cuda.yml
+export COMPOSE_FILE=docker/compose.run.cpu.yml
+```
+
+*Для запуска с поддержкой CUDA*
+```sh
+export docker/compose.run.cuda.yml
 ```
 
 **2) Запуск Compose**
@@ -179,36 +180,24 @@ http://127.0.0.1:7860/
 
 **Запуск Compose с сервером Nginx**
 ```sh
-curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.base.yml
-curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.run.cpu.yml
-curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.nginx.yml
-mkdir -p nginx
-curl -fsSL -o nginx/nginx.conf https://raw.githubusercontent.com/sergey21000/yolo-detector/main/nginx/nginx.conf
-export COMPOSE_FILE=compose.run.cpu.yml:compose.nginx.yml
+export COMPOSE_FILE=docker/compose.run.cpu.yml:docker/compose.nginx.yml
 docker compose up -d
 ```
 
 Веб-интерфейс сервера доступен по адресу  
 http://127.0.0.1
 
-**Как загрузить Compose и установить переменную окружения в Windows**
+**Как установить переменную окружения в Windows**
 
 - *PowerShell* (можно вставить сразу весь блок)
 ```powershell
-curl.exe -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.base.yml
-curl.exe -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.run.cpu.yml
-$env:COMPOSE_FILE = "compose.run.cpu.yml"
+$env:COMPOSE_FILE = "docker/compose.run.cpu.yml"
 echo $env:COMPOSE_FILE
-
 ```
 
 - *CMD* (каждую команду выполнять отдельно)
 ```sh
-curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.base.yml
-
-curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/docker/compose.run.cpu.yml
-
-set COMPOSE_FILE=compose.run.cpu.yml
+set COMPOSE_FILE=docker/compose.run.cpu.yml
 
 echo %COMPOSE_FILE%
 ```
@@ -216,7 +205,7 @@ echo %COMPOSE_FILE%
 Для перечисления нескольких файлов в переменной `COMPOSE_FILE` в Windows использовать разделитель `;`
 ```powershell
 # установка переменной окружения (вариант для Windows PowerShell)
-$env:COMPOSE_FILE = "compose.run.cpu.yml;compose.nginx.yml"
+$env:COMPOSE_FILE = "docker/compose.run.cpu.yml;docker/compose.nginx.yml"
 ```
 
 
@@ -225,28 +214,27 @@ $env:COMPOSE_FILE = "compose.run.cpu.yml;compose.nginx.yml"
 **1) Клонирование репозитория**  
 ```sh
 git clone https://github.com/sergey21000/yolo-detector.git
-cd yolo-detector/docker
+cd yolo-detector
 ```
 
 **2) Запуск Compose**
 
 *С поддержкой CPU*
 ```sh
-export COMPOSE_FILE=compose.build.cpu.yml
+export COMPOSE_FILE=docker/compose.build.cpu.yml
 docker compose up -d
 ```
 
 *С поддержкой CUDA*
 ```sh
-export COMPOSE_FILE=compose.build.cuda.yml
+export COMPOSE_FILE=docker/compose.build.cuda.yml
 docker compose up -d
 ```
 
 Или с указанием `compose` файла в одной команде
 ```sh
-docker compose -f compose.build.cuda.yml up -d
+docker compose -f docker/compose.build.cuda.yml up -d
 ```
-
 
 При первом запуске будет произведена сборка образа на основе `Dockerfile-cpu` или `Dockerfile-cuda`
 
@@ -278,6 +266,20 @@ docker run -it --gpus all -p 7860:7860 \
 Веб-интерфейс сервера доступен по адресу  
 http://127.0.0.1:7860/  
 Приложение доступно через некоторое время после запуска (после первоначальной загрузки моделей)
+
+---
+Для проброса конфига добавить
+```sh
+# загрузка конфига (или создать вручную)
+curl -fsSL -O https://raw.githubusercontent.com/sergey21000/yolo-detector/main/config.py
+
+# запуск контейнера с пробросом конфига
+docker run -it -p 7860:7860 \
+	-v ./models:/app/models \
+	-v ./runs:/app/runs \
+	-v ./config.py:/app/config.py \
+	ghcr.io/sergey21000/yolo-detector:main-cpu
+```
 
 
 ### 🔨 Сборка образа из Dockerfile и запуск контейнера

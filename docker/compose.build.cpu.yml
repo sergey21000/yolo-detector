@@ -5,5 +5,5 @@ services:
       service: gradio-app
     build:
       context: ..
-      dockerfile: Dockerfile-cpu
+      dockerfile: docker/Dockerfile-cpu
     image: yolo-detector:cpu
