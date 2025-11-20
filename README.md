@@ -148,6 +148,7 @@ python3 app.py
 **1) Клонирование репозитория**  
 ```sh
 git clone https://github.com/sergey21000/yolo-detector.git
+cd yolo-detector
 ```
 
 **2) Установка переменной `COMPOSE_FILE`**
@@ -222,13 +223,13 @@ cd yolo-detector
 *С поддержкой CPU*
 ```sh
 export COMPOSE_FILE=docker/compose.build.cpu.yml
-docker compose up -d
+docker compose up -d --build
 ```
 
 *С поддержкой CUDA*
 ```sh
 export COMPOSE_FILE=docker/compose.build.cuda.yml
-docker compose up -d
+docker compose up -d --build
 ```
 
 Или с указанием `compose` файла в одной команде
@@ -332,4 +333,3 @@ http://127.0.0.1:7860/
 ## Лицензия
 
 Этот проект лицензирован на условиях лицензии [AGPL-3.0 License](./LICENSE).
-

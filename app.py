@@ -425,7 +425,7 @@ with gr.Blocks(css=css) as demo:
             with gr.Group(elem_classes=['webcam-group']):
                 if CONFIG.WEBCAM_MODE == WebcamMode.WEBRTC:
                     webcam = WebRTC(
-                        label='Webcam Stream',
+                        label='Webcam Stream (WebRTC)',
                         height=None,
                         width=None,
                         mode='send-receive',
@@ -437,7 +437,7 @@ with gr.Blocks(css=css) as demo:
                 elif CONFIG.WEBCAM_MODE == WebcamMode.GRADIO:
                     webcam = gr.Image(
                         sources=['webcam'],
-                        label='Webcam Stream',
+                        label='Webcam Stream (gr.Image)',
                         height=None,
                         width=None,
                         mirror_webcam=False,
