@@ -159,7 +159,7 @@ export COMPOSE_FILE=docker/compose.run.cpu.yml
 
 *Для запуска с поддержкой CUDA*
 ```sh
-export docker/compose.run.cuda.yml
+export COMPOSE_FILE=docker/compose.run.cuda.yml
 ```
 
 **2) Запуск Compose**
@@ -332,3 +332,4 @@ http://127.0.0.1:7860/
 ## Лицензия
 
 Этот проект лицензирован на условиях лицензии [AGPL-3.0 License](./LICENSE).
+
