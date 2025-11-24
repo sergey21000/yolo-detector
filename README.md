@@ -153,17 +153,29 @@ cd yolo-detector
 
 **2) Установка переменной `COMPOSE_FILE`**
 
-*Для запуска с поддержкой CPU*
+<ins><i>Для запуска с поддержкой CPU</i></ins>
+
+- Linux
 ```sh
 export COMPOSE_FILE=docker/compose.run.cpu.yml
 ```
+- Windows PowerShell
+```ps1
+$env:COMPOSE_FILE = "docker/compose.run.cpu.yml"
+```
 
-*Для запуска с поддержкой CUDA*
+<ins><i>Для запуска с поддержкой CUDA</i></ins>
+
+- Linux
 ```sh
 export COMPOSE_FILE=docker/compose.run.cuda.yml
 ```
+- Windows PowerShell
+```ps1
+$env:COMPOSE_FILE = "docker/compose.run.cuda.yml"
+```
 
-**2) Запуск Compose**
+**3) Запуск Compose**
 ```sh
 docker compose up -d
 ```
@@ -180,34 +192,20 @@ http://127.0.0.1:7860/
 <ins><b>Дополнительно</b></ins>
 
 **Запуск Compose с сервером Nginx**
+
+- Linux
 ```sh
 export COMPOSE_FILE=docker/compose.run.cpu.yml:docker/compose.nginx.yml
+docker compose up -d
+```
+- Windows PowerShell
+```ps1
+$env:COMPOSE_FILE="docker/compose.run.cpu.yml;docker/compose.nginx.yml"
 docker compose up -d
 ```
 
 Веб-интерфейс сервера доступен по адресу  
 http://127.0.0.1
-
-**Как установить переменную окружения в Windows**
-
-- *PowerShell* (можно вставить сразу весь блок)
-```powershell
-$env:COMPOSE_FILE = "docker/compose.run.cpu.yml"
-echo $env:COMPOSE_FILE
-```
-
-- *CMD* (каждую команду выполнять отдельно)
-```sh
-set COMPOSE_FILE=docker/compose.run.cpu.yml
-
-echo %COMPOSE_FILE%
-```
-
-Для перечисления нескольких файлов в переменной `COMPOSE_FILE` в Windows использовать разделитель `;`
-```powershell
-# установка переменной окружения (вариант для Windows PowerShell)
-$env:COMPOSE_FILE = "docker/compose.run.cpu.yml;docker/compose.nginx.yml"
-```
 
 
 ### 🔨 Запуск Compose со сборкой образа
