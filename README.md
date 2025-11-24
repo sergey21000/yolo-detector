@@ -156,24 +156,24 @@ cd yolo-detector
 <ins><i>Для запуска с поддержкой CPU</i></ins>
 
 - Linux
-```sh
-export COMPOSE_FILE=docker/compose.run.cpu.yml
-```
+  ```sh
+  export COMPOSE_FILE=docker/compose.run.cpu.yml
+  ```
 - Windows PowerShell
-```ps1
-$env:COMPOSE_FILE = "docker/compose.run.cpu.yml"
-```
+  ```ps1
+  $env:COMPOSE_FILE="docker/compose.run.cpu.yml"
+  ```
 
 <ins><i>Для запуска с поддержкой CUDA</i></ins>
 
 - Linux
-```sh
-export COMPOSE_FILE=docker/compose.run.cuda.yml
-```
+  ```sh
+  export COMPOSE_FILE=docker/compose.run.cuda.yml
+  ```
 - Windows PowerShell
-```ps1
-$env:COMPOSE_FILE = "docker/compose.run.cuda.yml"
-```
+  ```ps1
+  $env:COMPOSE_FILE="docker/compose.run.cuda.yml"
+  ```
 
 **3) Запуск Compose**
 ```sh
@@ -194,15 +194,15 @@ http://127.0.0.1:7860/
 **Запуск Compose с сервером Nginx**
 
 - Linux
-```sh
-export COMPOSE_FILE=docker/compose.run.cpu.yml:docker/compose.nginx.yml
-docker compose up -d
-```
+  ```sh
+  export COMPOSE_FILE=docker/compose.run.cpu.yml:docker/compose.nginx.yml
+  docker compose up -d
+  ```
 - Windows PowerShell
-```ps1
-$env:COMPOSE_FILE="docker/compose.run.cpu.yml;docker/compose.nginx.yml"
-docker compose up -d
-```
+  ```ps1
+  $env:COMPOSE_FILE="docker/compose.run.cpu.yml;docker/compose.nginx.yml"
+  docker compose up -d
+  ```
 
 Веб-интерфейс сервера доступен по адресу  
 http://127.0.0.1
