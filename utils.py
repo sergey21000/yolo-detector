@@ -69,7 +69,7 @@ def detect_webcam(
     )
     new_np_image = detect_image(detect_config)
     return new_np_image
- 
+
 
 def detect_video(detect_config: DetectConfig) -> tuple[UltralyticsResults, int, int]:
     video_path = detect_config.source

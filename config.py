@@ -35,7 +35,7 @@ class Config:
     TRACKER_NAMES: list[str] = list(TRACKERS.keys())
     WEBCAM_TIME_LIMIT: int = 60
     WEBCAM_MAX_WINDOW_WIDTH: int = 600
-    WEBCAM_MODE: WebcamMode = WebcamMode.WEBRTC  # WebcamMode.WEBRTC or WebcamMode.GRADIO
+    WEBCAM_MODE: WebcamMode = WebcamMode.GRADIO  # WebcamMode.WEBRTC or WebcamMode.GRADIO
 
 
 @dataclass
