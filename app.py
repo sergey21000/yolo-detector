@@ -10,7 +10,7 @@ from ultralytics.engine.results import Results as UltralyticsResults
 from matplotlib.figure import Figure as MatplotlibFigure
 
 from dotenv import load_dotenv
-load_dotenv(dotenv_path='gradio.env')
+load_dotenv(dotenv_path='.gradio.env')
 
 from config import Config as CONFIG, DetectConfig, WebcamMode
 from utils import (
