@@ -124,6 +124,11 @@ cd yolo-detector
   pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu128
   ```
 
+Для работы библиотеки `opencv` на Linux необходимо установить библиотеки
+```sh
+sudo apt update && sudo apt install -y --no-install-recommends libgl1 libglib2.0-0
+```
+
 [Страница](https://pytorch.org/get-started/locally/#start-locally) устанвки Pytorch где можно выбрать `--extra-index-url` для других версий CUDA
 
 **4) Запуск сервера Gradio**  
