@@ -34,6 +34,7 @@
 ![Страница результатов](./screenshots/video_detect_results.png)
 </details>
 
+
 ---
 ## 📋 Содержание
 
@@ -331,8 +332,178 @@ cd yolo-detector
 http://127.0.0.1:7860/  
 Приложение доступно через некоторое время после запуска (после первоначальной загрузки моделей)
 
----
 
+## ☸ Масштабирование через Kubernetes
+
+
+### Установка библиотек
+
+**1) Docker + Docker Compose**
+
+Быстрая установка Docker + Docker Compose на Linux
+```sh
+sudo apt-get update
+curl -fsSL https://get.docker.com | sudo sh
+sudo systemctl enable --now docker
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+**2) NVIDIA Container Toolkit (опционально)**
+
+Для работы контейнеров на видеокартах NVIDIA нужно установить NVIDIA Container Toolkit  
+https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
+
+Быстрая установка NVIDIA Container Toolkit на Linux
+```sh
+sudo apt-get update && sudo apt-get install -y --no-install-recommends curl gnupg2
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+  && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+    sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+sudo apt-get update
+sudo apt-get install -y nvidia-container-toolkit
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker
+```
+
+**3) Kubernetes**
+
+Установка Kubernetes на Linux (на примере k3s - облегченная версия)  
+https://docs.k3s.io/quick-start
+```sh
+curl -sfL https://get.k3s.io | sh -
+```
+
+> [!NOTE]
+> Опционально: сделать чтобы запускать команду kubectl без sudo (работает конкретно для k3s)
+```sh
+sudo chmod 644 /etc/rancher/k3s/k3s.yaml
+```
+
+**4) Kompose**
+
+Установка kompose на Linux для автоматического создания конфигов из Docker Compose файлов
+(для windows просто скачать exe и добавить в переменные окружения)
+https://kubernetes.io/docs/tasks/configure-pod-container/translate-compose-kubernetes/#install-kompose
+```sh
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.34.0/kompose-linux-amd64 -o kompose
+chmod +x kompose
+sudo mv ./kompose /usr/local/bin/kompose
+```
+Если конфиги будут создаваться вручную - установку Kompose можно пропустить
+
+
+### Подготовка и запуск
+
+Клонирование репозитория
+```sh
+git clone https://github.com/sergey21000/yolo-detector.git
+cd yolo-detector
+```
+
+**Вариант 1 - запуск из готовых манифестов**
+
+Применить манифесты
+```sh
+kubectl apply -f k8s/
+```
+
+**Вариант 2 удалить папку k8s и создать манифесты заново через kompose**
+
+Создание манифестов (конфигов) для Kubernetes из Docker Compose файлов
+```sh
+kompose -f docker/compose.run.cpu.yml convert -o k8s/ --deployment
+```
+
+Заменить `ClusterIP`  на `NodePort` в `k8s/gradio-app-service.yaml` и назначить порт 3007
+```sh
+nano k8s/gradio-app-service.yaml
+```
+Редактировать чтобы было так
+```yaml
+spec:
+  type: NodePort  # дописать эту строку
+  ports:
+    - name: "7860"
+      port: 7860
+      targetPort: 7860
+	  # дописать эту строку если нужен конкретный порт, 
+	  # если не нужен то узнать порт через `kubectl get svc yolo-detector`
+      nodePort: 30007
+  sessionAffinity: ClientIP
+  selector:
+    io.kompose.service: gradio-app
+```
+
+Применить манифесты
+```sh
+kubectl apply -f k8s/
+```
+
+**Проверка результата**
+
+Дождаться статуса Running (выйти - `Ctrl` + `C`)
+```sh
+kubectl get pods -w
+```
+Перейти на `IP_сервера:30007`, например http://217.16.17.211:30007/
+
+Масштабирование - например сделать два пода вместо одного
+```sh
+kubectl scale deployment gradio-app --replicas=2
+```
+Затем проверить поды
+```
+kubectl get pods
+```
+
+
+### Мониторинг
+
+Установка Helm - пакетный менеджер для Kubernetes  
+https://helm.sh/docs/intro/install
+```sh
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-4
+chmod 700 get_helm.sh
+./get_helm.sh
+```
+
+Установка Headlamp
+```sh
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+helm repo add headlamp https://kubernetes-sigs.github.io/headlamp/
+helm install my-headlamp headlamp/headlamp --namespace kube-system
+```
+Здесь в первой команде через export устанавливается новый путь до конфига Kubernetes, поскольку он установлен через k3s
+
+Создание сервисного аккаунта с правами администратора
+```sh
+kubectl -n kube-system create serviceaccount headlamp-admin
+kubectl create clusterrolebinding headlamp-admin --serviceaccount=kube-system:headlamp-admin --clusterrole=cluster-admin
+```
+
+Вывести токен для входа в дашборд
+```sh
+kubectl create token headlamp-admin -n kube-system
+```
+Затем скопировать токен
+
+Открыть доступ через port-forward и не трогать текущий терминал
+```sh
+kubectl port-forward -n kube-system service/my-headlamp 8080:80 --address 0.0.0.0
+```
+Перейти на `IP_сервера:8080`, например https://90.156.214.221:8080 и вставить токен  
+(если браузер покажет предупреждение о сертификате — это нормально, нажать Дополнительно - Все равно перейти)  
+Например посмотреть нагрузку подов можно во вкладе `Workloads` → `Pods`
+
+Либо запустить port-forward  в фоне
+```sh
+nohup kubectl port-forward -n kube-system service/my-headlamp 8080:80 --address 0.0.0.0 &
+```
+
+
+---
 Приложение написано для демонстрационных и образовательных целей, оно не предназначалось и не тестировалось для промышленного использования
 
 
