@@ -381,9 +381,9 @@ curl -sfL https://get.k3s.io | sh -
 
 > [!NOTE]
 > Опционально: сделать чтобы запускать команду kubectl без sudo (работает конкретно для k3s)
-```sh
-sudo chmod 644 /etc/rancher/k3s/k3s.yaml
-```
+> ```sh
+> sudo chmod 644 /etc/rancher/k3s/k3s.yaml
+> ```
 
 **4) Kompose**
 
