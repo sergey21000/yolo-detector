@@ -432,8 +432,8 @@ spec:
     - name: "7860"
       port: 7860
       targetPort: 7860
-	  # дописать эту строку если нужен конкретный порт, 
-	  # если не нужен то узнать порт через `kubectl get svc yolo-detector`
+      # дописать эту строку если нужен конкретный порт, 
+      # если не нужен то узнать порт через `kubectl get svc yolo-detector`
       nodePort: 30007
   sessionAffinity: ClientIP
   selector:
@@ -501,14 +501,10 @@ kubectl port-forward -n kube-system service/my-headlamp 8080:80 --address 0.0.0.
 (если браузер покажет предупреждение о сертификате — это нормально, нажать Дополнительно - Все равно перейти)  
 Например посмотреть нагрузку подов можно во вкладе `Workloads` → `Pods`
 
-Либо запустить port-forward  в фоне
+Вариант как можно запустить port-forward  в фоне
 ```sh
 nohup kubectl port-forward -n kube-system service/my-headlamp 8080:80 --address 0.0.0.0 &
 ```
-
-
----
-Приложение написано для демонстрационных и образовательных целей, оно не предназначалось и не тестировалось для промышленного использования
 
 
 ## Лицензия
